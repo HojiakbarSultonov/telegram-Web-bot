@@ -11,7 +11,7 @@ function App() {
 	const [cartItems, setCartItems] = useState([]);
 	useEffect(() => {
 		telegram.ready();
-	}, []);
+	});
 
 	const onAddItem = item => {
 		existItem = cartItems.find(c => c.id === item.id);
