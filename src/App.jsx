@@ -2,7 +2,7 @@ import './App.css';
 import Card from './components/card/Card';
 import Cart from './components/cart/Cart';
 import { getData } from './constants/db';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const courses = getData();
 const telegram = window.Telegram.WebApp;
@@ -36,7 +36,7 @@ function App() {
 		}
 	};
 
-	onCheckout = () => {
+	const onCheckout = () => {
 		telegram.MainButton.text = 'Sotib olish :)';
 		telegram.MainButton.show();
 	};
