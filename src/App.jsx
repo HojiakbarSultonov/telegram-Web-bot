@@ -2,7 +2,7 @@ import './App.css';
 import Card from './components/card/Card';
 import Cart from './components/cart/Cart';
 import { getData } from './constants/db';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const courses = getData();
 const telegram = window.Telegram.WebApp;
@@ -40,6 +40,15 @@ function App() {
 		telegram.MainButton.text = 'Sotib olish :)';
 		telegram.MainButton.show();
 	};
+
+	const onSendData = useCallback(() => {
+		telegram.sendData(JSON.stringify(cartItems));
+	}, [cartItems]);
+
+	useEffect(() => {
+		telegram.onEvent('mainButtonClicked', onSendData);
+		return () => telegram.offEvent('mainButtonClicked', onSendData);
+	}, [onSendData]);
 	return (
 		<>
 			<h1 className='heading'>Hadji kurslar</h1>
